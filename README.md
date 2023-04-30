@@ -1,2 +1,2 @@
 # Sudoku Solver 
-## University project 
+** University project ** 
