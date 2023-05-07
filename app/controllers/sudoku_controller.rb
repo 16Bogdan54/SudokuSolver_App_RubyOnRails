@@ -20,8 +20,6 @@ class SudokuController < ApplicationController
     end
   end
 
-  private
-
   def solve_sudoku(grid)
     find = find_empty_cell(grid)
     return true unless find
