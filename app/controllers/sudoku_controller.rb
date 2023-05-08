@@ -10,14 +10,14 @@ class SudokuController < ApplicationController
         if !@solved_sudoku
           @solution = @sudoku
           @cant_solve = true
-        elsif @solved_sudoku == true
+        elsif @solved_sudoku
           @solution = @sudoku
         else
           @solution = @solved_sudoku
         end
       else
         @solution = @sudoku
-        @is_solved = @sudoku_validator.sudoku_solved?(@sudoku)
+        @is_solved = @sudoku_validator.solved?(@sudoku)
       end
     end
   end
