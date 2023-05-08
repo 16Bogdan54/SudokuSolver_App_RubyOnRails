@@ -1,0 +1,30 @@
+<h1>Введіть судоку</h1>
+
+<%= form_with url: sudoku_index_path, method: :post, local: true, data: { turbo: false } do |form| %>
+  <table>
+    <% 9.times do |row| %>
+      <tr>
+        <% 9.times do |col| %>
+          <td>
+            <%= form.number_field "sudoku[#{row}][#{col}]", min: 0, max: 9, class: "sudoku-input", value: @solution[row][col] %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </table>
+  <%= button_tag "Рандом", type: "button", id: "randomize" %>
+  <%= form.submit "Вирішити", name: "solve" %>
+  <%= form.submit "Перевірити", name: "check" %>
+<% end %>
+
+<% if @is_solved.present? %>
+  <% if @is_solved == 1 %>
+    <p>Судоку вирішено вірно!</p>
+  <% else %>
+    <p>Судоку вирішено не вірно!</p>
+  <% end %>
+<% end %>
+
+<% if @cant_solve.present? %>
+  <p>Немає рішень!</p>
+<% end %>
