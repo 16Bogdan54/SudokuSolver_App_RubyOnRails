@@ -1,30 +1,107 @@
-<h1>Введіть судоку</h1>
 
-<%= form_with url: sudoku_index_path, method: :post, local: true, data: { turbo: false } do |form| %>
-  <table>
-    <% 9.times do |row| %>
-      <tr>
-        <% 9.times do |col| %>
-          <td>
-            <%= form.number_field "sudoku[#{row}][#{col}]", min: 0, max: 9, class: "sudoku-input", value: @solution[row][col] %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </table>
-  <%= button_tag "Рандом", type: "button", id: "randomize" %>
-  <%= form.submit "Вирішити", name: "solve" %>
-  <%= form.submit "Перевірити", name: "check" %>
-<% end %>
 
-<% if @is_solved.present? %>
-  <% if @is_solved == 1 %>
-    <p>Судоку вирішено вірно!</p>
-  <% else %>
-    <p>Судоку вирішено не вірно!</p>
+<div class="container">
+  <h1>Введіть судоку</h1>
+  <%= form_with url: sudoku_index_path, method: :post, local: true, data: { turbo: false } do |form| %>
+    <table>
+      <% 9.times do |row| %>
+        <tr>
+          <% 9.times do |col| %>
+            <td>
+              <%= form.number_field "sudoku[#{row}][#{col}]", min: 0, max: 9, class: "sudoku-input", value: @solution[row][col] %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </table>
+    <div class="button-panel">
+      <%= button_tag "Рандом", type: "button", id: "randomize" %>
+      <%= form.submit "Вирішити", name: "solve", class: "form-button" %>
+      <%= form.submit "Перевірити", name: "check", class: "form-button" %>
+    </div>
   <% end %>
-<% end %>
 
-<% if @cant_solve.present? %>
-  <p>Немає рішень!</p>
-<% end %>
+  <% if @is_solved.present? %>
+    <% if @is_solved == 1 %>
+      <p>Судоку вирішено вірно!</p>
+    <% else %>
+      <p>Судоку вирішено не вірно!</p>
+    <% end %>
+  <% end %>
+
+  <% if @cant_solve.present? %>
+    <p>Немає рішень!</p>
+  <% end %>
+</div>
+
+
+<style>
+
+
+  h1{
+      font-size: 3rem;
+      font-family: Tahoma, Geneva, sans-serif;
+  }
+
+  table {
+      border-collapse: collapse;
+      font-family: Tahoma, Geneva, sans-serif;
+      border-radius: 20px;
+  }
+  table td {
+      padding: 15px;
+  }
+  table thead td {
+      background-color: #54585d;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 13px;
+      border: 1px solid #54585d;
+  }
+  table tbody td {
+      color: #636363;
+      border: 1px solid #dddfe1;
+  }
+  table tbody tr {
+      background-color: #f9fafb;
+  }
+  table tbody tr:nth-child(odd) {
+      background-color: #ffffff;
+  }
+
+  .container{
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      align-content: center;
+      background: #2c86e3;
+      flex-direction: column;
+  }
+
+  .button-panel{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1rem 0rem;
+  }
+
+  button{
+      background: #2E2F30;
+      color: white;
+      padding: .7rem 1.2rem;
+      border: none;
+      border-radius: 15px;
+  }
+
+  .form-button{
+      background: #2E2F30;
+      color: white;
+      padding: .7rem 1.2rem;
+      border: none;
+      border-radius: 15px;
+  }
+
+
+</style>
