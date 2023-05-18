@@ -2,16 +2,14 @@ class SudokuController < ApplicationController
   def index
     @solution = Array.new(9) { Array.new(9, 0) }
     if request.post?
-      @sudoku = params[:sudoku].to_unsafe_h.values.map { |row| row.values.map(&:to_i) }
-      if params.keys.include? 'solve'
+      @sudoku = parse_sudoku_params(params[:sudoku])
+      if params.key?('solve')
         @solved_sudoku = SudokuSolver.solve(@sudoku)
-        if !@solved_sudoku
+        if @solved_sudoku
+          @solution = @solved_sudoku
+        else
           @solution = @sudoku
           @cant_solve = true
-        elsif @solved_sudoku
-          @solution = @sudoku
-        else
-          @solution = @solved_sudoku
         end
       else
         @solution = @sudoku
@@ -20,7 +18,9 @@ class SudokuController < ApplicationController
     end
   end
 
-  def sudoku_params
-    params.require(:sudoku).permit!
+  private
+
+  def parse_sudoku_params(sudoku_params)
+    sudoku_params.to_unsafe_h.values.map { |row| row.values.map(&:to_i) }
   end
 end
