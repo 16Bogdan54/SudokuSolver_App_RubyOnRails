@@ -22,9 +22,10 @@
   <% end %>
 
   <% if @is_solved.present? %>
-    <% if @is_solved == 1 %>
+    <% if @is_solved == true %>
       <p>Судоку вирішено вірно!</p>
     <% else %>
+      <%= @is_solved %>
       <p>Судоку вирішено не вірно!</p>
     <% end %>
   <% end %>
@@ -103,5 +104,8 @@
       border-radius: 15px;
   }
 
+  button, input[type="submit"] {
+      cursor: pointer;
+  }
 
 </style>
