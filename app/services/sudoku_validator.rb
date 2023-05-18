@@ -1,5 +1,5 @@
 class SudokuValidator
-  def solved?(grid)
+  def self.solved?(grid)
     (0..8).each { |row|
       unless valid_group?(grid[row])
         return false
@@ -29,7 +29,7 @@ class SudokuValidator
     true
   end
 
-  def valid_group?(group)
+  def self.valid_group?(group)
     group.sort == (1..9).to_a
   end
 end

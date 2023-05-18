@@ -1,25 +1,26 @@
 class SudokuSolver
-  def solve(grid)
-    find = find_empty_cell(grid)
+  def self.solve(grid)
+    @grid = grid
+    find = find_empty_cell(@grid)
     return true unless find
 
     row, col = find
 
     (1..9).each do |num|
-      if valid?(grid, row, col, num)
-        grid[row][col] = num
+      if valid?(@grid, row, col, num)
+        @grid[row][col] = num
 
-        if solve(grid)
-          return grid
+        if solve(@grid)
+          return @grid
         end
-        grid[row][col] = 0
+        @grid[row][col] = 0
       end
     end
 
     false
   end
 
-  def find_empty_cell(grid)
+  def self.find_empty_cell(grid)
     grid.each_with_index do |row, i|
       row.each_with_index do |cell, j|
         if cell == 0
@@ -30,7 +31,7 @@ class SudokuSolver
     nil
   end
 
-  def valid?(grid, row, col, num)
+  def self.valid?(grid, row, col, num)
     (0..8).each do |i|
       if grid[row][i] == num
         return false
