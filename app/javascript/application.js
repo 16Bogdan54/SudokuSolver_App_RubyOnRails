@@ -2,7 +2,7 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-function generateSudoku() {
+const generateSudoku = () => {
     const grid = [
         [6, 5, 3, 1, 9, 2, 8, 7, 4],
         [1, 7, 4, 8, 6, 5, 3, 2, 9],
@@ -21,11 +21,7 @@ function generateSudoku() {
         for (let col = 0; col < 9; col++) {
             const value = grid[row][col];
             const chance = Math.random();
-            if (chance < 0.5) {
-                resultGrid[row][col] = 0;
-            } else {
-                resultGrid[row][col] = value;
-            }
+            resultGrid[row][col] = chance < 0.5 ? 0 : value;
         }
     }
 
@@ -37,10 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const sudokuInputs = document.querySelectorAll(".sudoku-input");
 
     randomizeButton.addEventListener("click", () => {
-        let idx = 0;
-        const sudoku = generateSudoku().flat(1);
-        sudokuInputs.forEach((input) => {
-            input.value = sudoku[idx++];
+        const sudoku = generateSudoku().flat();
+        sudokuInputs.forEach((input, idx) => {
+            input.value = sudoku[idx];
         });
     });
 });
